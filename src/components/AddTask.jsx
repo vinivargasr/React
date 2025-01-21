@@ -15,7 +15,14 @@ function AddTask( {onAddTasksSubmit} ) {
                 onChange={(event) => setDescription(event.target.value)}
             />
             <button
-                onClick={() => onAddTasksSubmit(title, description)}
+                onClick={() => {
+                    if (!title.trim() || !description.trim()) {
+                        return alert('Tarefa sem os dados necessários')
+                    }
+                        onAddTasksSubmit(title, description)
+                        setTitle('')
+                        setDescription('')                    
+                }}
                 className="bg-slate-500 text-white px-4 py-2 rounded-md font-medium">Adicionar
             </button>
         </div>

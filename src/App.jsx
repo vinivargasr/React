@@ -47,7 +47,7 @@ function onAddTasksSubmit(title, description) {
     description,
     isCompleted: false,
   }
-  setTasks(...tasks, newTask)
+  setTasks([...tasks, newTask])
 }
 
 return (
