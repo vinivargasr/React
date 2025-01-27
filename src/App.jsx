@@ -1,28 +1,27 @@
 import AddTask from "./components/AddTask"
 import Tasks from "./components/Tasks"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-    id: 1,
-    title: "Estudar programação",
-    description: "Estudadr programação para se profissionalizar",
-    isCompleted: false
-    },
-    {
-    id: 2,
-    title: "Estudar inglês",
-    description: "Lingua global mais utilizada",
-    isCompleted: false
-    },
-    {
-    id: 3,
-    title: "Estudar matemática",
-    description: "Matéria muito importante na area da programação",
-    isCompleted: false
-    }
-])
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem('tasks')) || []
+  )
+
+useEffect(() => {
+  localStorage.setItem('tasks', JSON.stringify(tasks))
+}, [tasks])
+
+useEffect(() => {
+  const fetchTasks = async () => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=10', {
+      method: 'GET'
+    })
+    const data = await response.json()
+    setTasks(data)
+
+  }
+  fetchTasks()
+}, [])
 
 function onTaskClick(taskId) {
   const newTasks = tasks.map(task => {
@@ -42,7 +41,7 @@ function onDeleteTaskClick(taskId) {
 
 function onAddTasksSubmit(title, description) {
   const newTask = {
-    id: tasks.length + 1,
+    id: Date.now(),
     title,
     description,
     isCompleted: false,
