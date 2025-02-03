@@ -1,5 +1,6 @@
 import { ArrowUpRight, Trash2  } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import Button from './Button.jsx'
 
 function Tasks({tasks, onTaskClick, onDeleteTaskClick}) {
     const navigate = useNavigate()
@@ -21,15 +22,15 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}) {
             >
                 {task.title}
             </button>
-            <button onClick={() => onSeeDetailsClick(task)}
+            <Button onClick={() => onSeeDetailsClick(task)}
                 className='bg-slate-400 p-2 rounded-md text-white'>
                 <ArrowUpRight />
-            </button>
-            <button
+            </Button>
+            <Button
                 onClick={() => onDeleteTaskClick(task.id)}
                 className='bg-slate-400 p-2 rounded-md text-white'>
                 <Trash2 />
-            </button>
+            </Button>
             </li>
             ))}
         </ul>
